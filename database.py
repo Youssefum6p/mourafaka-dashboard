@@ -1,11 +1,14 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
 def load_data():
 
-    # connexion Supabase depuis Streamlit Secrets
-    db_url = st.secrets["DATABASE_URL"]
+    try:
+        db_url = st.secrets["DATABASE_URL"]
+    except:
+        db_url = os.getenv("SUPABASE_DB_URL")
 
     engine = create_engine(db_url)
 
